@@ -8,6 +8,10 @@ Pipenv is used to manage the dependencies. To install pipenv, run the following 
 ```bash
 pip install pipenv
 ```
+To install the dependencies, run the following command:
+```bash
+pipenv install
+```
 
 
 ## Dependencies
