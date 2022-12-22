@@ -15,7 +15,7 @@ pipenv install
 
 
 ## Dependencies
-    - Python 3.11
-    - Selenium
-    - Edge Driver
-    - Edge Browser Version 108.0.1462.54
+    * Python 3.11
+    * Selenium
+    * Edge Driver
+    * Edge Browser Version 108.0.1462.54
