@@ -14,7 +14,7 @@ if date.strftime("%A") == "Friday":
     
     data = data[(data.Day != curr_date)]
     print("Data Ready")
-    excel_path = 'C:\\Users\\Max\\Desktop\\WTD Tracker Menards 2023.xlsx'
+    excel_path = os.environ['USERPROFILE']+'\\Desktop\\WTD Tracker Menards 2023.xlsx'
     ExcelWriter = pandas.ExcelWriter(path=excel_path, mode='a', if_sheet_exists='overlay')
     print('Starting to write')
     data.to_excel(excel_path, sheet_name="2023 Raw", header=columns, startrow=5, startcol=-1)
