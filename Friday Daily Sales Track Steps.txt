@@ -1,0 +1,40 @@
+daily sales tracker under correct week
+.xlsx file WRT tracker Menards Week i for week in year
+update and continue twice if neccesary
+
+if day is Friday
+under this year Raw
+    highlight all raw data (a-i)
+    delete data
+    open micro strategy
+        username: gcurl2773
+        password: 1030 + input 6 digit pin
+
+        username: GCurl@ppg.com
+        password: 50Xahs63
+
+        open menards decision support
+            open my reports
+                open transfer
+                    open daily sales tracker
+                        Click Run Report Button
+                        Unselect week selected (click then click unselect button)
+                        Select correct week (click select button)
+                        Click Run Report Button
+                        Click Expot Button
+                        Select CSV file
+                        Click Export
+                        Headers: [Location, Store, Day, Item, Desc, Desc_2, Metrics, Unit Sales, $_Sales]
+                        Filter days to include everything but the current day
+                        Output data to file WRT tracker Menards Week i for week in year under this year Raw tab
+                            Make sure formulas carry downards
+                            Check for N/A's
+
+
+
+
+
+
+
+
+
