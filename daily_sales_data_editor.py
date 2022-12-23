@@ -1,10 +1,11 @@
 import pandas
 from datetime import datetime
+import os
 
 date = datetime.now()
 if date.strftime("%A") == "Friday":
     curr_date = str(date.month) + "/" + str(date.day) + "/" + str(date.year)
-    file_path = 'C:\\Users\\Max\\Desktop\\SampleFile.csv'
+    file_path = os.environ['USERPROFILE'] + '\\Desktop\\SampleFile.csv'
     columns = ['Location', 'Store', 'Day', 'Item', 'Desc', 'Desc_2', 'Metrics', 'Unit_Sales', '$_Sales']
     data = pandas.read_csv(file_path, header=0, names=columns)
 
