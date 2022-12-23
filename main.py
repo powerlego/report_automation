@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-from widgets.main_screen import MainScreen
+from widgets import MainScreen
 
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QMainWindow
@@ -28,8 +28,8 @@ class MainWindow(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     window = MainWindow()
-    
-    sys.exit(app.exec_())
+    app.exec()
+    print("Done")
     # USERPROFILE = os.environ["USERPROFILE"]
     # driver_location = os.path.join(
     #     USERPROFILE,
