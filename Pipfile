@@ -5,8 +5,13 @@ name = "pypi"
 
 [packages]
 selenium = "*"
+pyside6 = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.11"
+
+[pipenv]
+allow_prereleases = true
