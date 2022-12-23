@@ -1,29 +1,29 @@
 import os
 import time
 
-from selenium import webdriver
+
 from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.support.wait import WebDriverWait
+from dotenv import load_dotenv
+from selenium.webdriver.support import expected_conditions as EC
+
+from data_grabber import DataGrabber
 
 
 def main():
-    USERPROFILE = os.environ["USERPROFILE"]
-    driver_location = os.path.join(
-        USERPROFILE,
-        "AppData",
-        "Local",
-        "Programs",
-        "report_automation",
-        "msedgedriver.exe",
-    )
-    service = EdgeService(driver_location)
-    driver = webdriver.Edge(service=service)
-    driver.get("https://www.google.com")
-    time.sleep(5)
-    search_box = driver.find_element(By.NAME, "q")
-    search_box.send_keys("EdgeDriver")
-    search_box.submit()
-    time.sleep(5)  # Let the user actually see something!
+    config = load_dotenv(".env")
+    data_grabber = DataGrabber(os.environ["PASSWORD1"])
+    driver = data_grabber.driver
+    print(data_grabber.base_url)
+    driver.get(data_grabber.base_url)
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="contentFrame"]')))
+    driver.switch_to.frame(driver.find_element(By.XPATH, '//*[@id="contentFrame"]'))
+    element = driver.find_element(By.ID, "username")
+    element.send_keys(data_grabber.username1)
+    element = driver.find_element(By.ID, "passcode")
+    element.send_keys(data_grabber.password1)
+    time.sleep(200)
+    
     driver.quit()
 
 
