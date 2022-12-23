@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
 from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium import webdriver
+from selenium.webdriver.support import expected_conditions as EC
 import os
 
 
@@ -15,4 +17,7 @@ class DataGrabber:
         self.password1 = password1
         self.username2 = os.environ["USERNAME2"]
         self.password2 = os.environ["PASSWORD2"]
+        
+    def wait_for_element(self, element):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(element))
         
