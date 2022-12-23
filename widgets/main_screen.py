@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QCoreApplication
 import sys
 
 
@@ -13,15 +13,30 @@ class MainScreen(QtWidgets.QWidget):
         self.header.setAlignment(Qt.AlignCenter)
         self.sizePolicy().setHorizontalPolicy(QtWidgets.QSizePolicy.Policy.Expanding)
 
-        self.username_label = QtWidgets.QLabel("Username")
-        self.username_input = QtWidgets.QLineEdit()
-
+        self.password_label = QtWidgets.QLabel("6-Digit Code Password:")
+        self.password_input = QtWidgets.QLineEdit()
+        self.password_input.returnPressed.connect(self.login)
+        self.hbox = QtWidgets.QHBoxLayout()
+        self.hbox.addWidget(self.password_label)
+        self.hbox.addWidget(self.password_input)
+        self.hbox2 = QtWidgets.QHBoxLayout()
+        self.button = QtWidgets.QPushButton("Login")
+        self.button.clicked.connect(self.login)
+        self.button.setDefault(True)
+        self.expander2 = QtWidgets.QSpacerItem(100,2, QtWidgets.QSizePolicy.Policy.Expanding,QtWidgets.QSizePolicy.Policy.Minimum)
+        self.hbox2.addItem(self.expander2)
+        self.hbox2.addWidget(self.button)
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.maximumSize = (sys.maxsize, sys.maxsize)
         self.layout.addWidget(self.header)
+        self.layout.addLayout(self.hbox)
         self.layout.addItem(self.expander)
+        self.layout.addLayout(self.hbox2)
         self.setLayout(self.layout)
-        # self.hbox = QtWidgets.QHBoxLayout()
-        # self.hbox.addWidget(self.username_label)
-        # self.hbox.addWidget(self.username_input)
-        # self.layout.addLayout(self.hbox)
+        
+    def login(self):
+        print(self.password_input.text())
+        self.password_input.setText("")
+        QCoreApplication.quit()
+        
+        
