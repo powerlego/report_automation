@@ -19,3 +19,4 @@ pipenv install
 - Selenium
 - Edge Driver
 - Edge Browser Version 108.0.1462.54
+- PySide6
