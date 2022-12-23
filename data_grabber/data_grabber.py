@@ -1,15 +1,18 @@
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium import webdriver
+import os
 
 
 class DataGrabber:
     def __init__(self, password1):
-        self._config = dotenv_values(".env")
-        self.base_url = self._config["BASE_URL"]
-        self.username1 = self._config["USERNAME1"]
+        self.driver_location = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Programs", "report_automation", "msedgedriver.exe")
+        self.service = EdgeService(self.driver_location)
+        self.driver = webdriver.Edge(service=self.service)
+        load_dotenv()
+        self.base_url = os.environ["BASE_URL"]
+        self.username1 = os.environ["USERNAME1"]
         self.password1 = password1
-        self.username2 = self._config["USERNAME2"]
-        self.password2 = self._config["PASSWORD2"]
+        self.username2 = os.environ["USERNAME2"]
+        self.password2 = os.environ["PASSWORD2"]
         
-
-    def get_config(self, key):
-        return self._config[key]
