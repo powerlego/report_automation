@@ -13,6 +13,7 @@ from data_grabber import DataGrabber
 def main():
    
     wb = load_workbook(filename= os.path.join(os.environ['USERPROFILE'], 'Desktop', 'WTD Tracker Menards 2023.xlsx'))
+    print(wb.sheetnames)
     # config = load_dotenv(".env")
     # data_grabber = DataGrabber(os.environ["PASSWORD1"])
     # driver = data_grabber.driver
