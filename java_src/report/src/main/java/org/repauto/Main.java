@@ -47,7 +47,8 @@ public class Main {
                 }
                 lines.add(lineList);
             }
-        } catch (IOException | CsvValidationException e) {
+        }
+        catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
         FileInputStream fis = new FileInputStream(path.toFile());
@@ -78,18 +79,19 @@ public class Main {
         int salesFormat = BuiltinFormats.getBuiltinFormat("#,##0_);[Red](#,##0)");
         XSSFCellStyle salesStyle = workbook.createCellStyle();
         salesStyle.setDataFormat(salesFormat);
-        
+
         boolean currency = false;
         Pattern p = Pattern.compile("\\(\\d+\\)");
         if (sheet != null) {
             int colSize = lines.get(0).size();
-            //Clear all data
-            ProgressBar pb = new ProgressBarBuilder().setTaskName("Clearing Old Data").setInitialMax(sheet.getLastRowNum()-6)
-                .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
+            // Clear all data
+            ProgressBar pb = new ProgressBarBuilder().setTaskName("Clearing Old Data")
+                    .setInitialMax(sheet.getLastRowNum() - 6)
+                    .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
             int lastRowNum = sheet.getLastRowNum();
-            for(int i = 6; i<sheet.getLastRowNum(); i++) {
-                for(int j = 0; j<colSize; j++) {
-                    if(sheet.getRow(i).getCell(j) != null){
+            for (int i = 6; i < sheet.getLastRowNum(); i++) {
+                for (int j = 0; j < colSize; j++) {
+                    if (sheet.getRow(i).getCell(j) != null) {
                         sheet.getRow(i).getCell(j).setCellType(CellType.BLANK);
                     }
                 }
@@ -97,7 +99,7 @@ public class Main {
             }
             pb.close();
             pb = new ProgressBarBuilder().setTaskName("Updating Excel").setInitialMax(lines.size())
-                .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
+                    .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
             for (int i = 5; i < lines.size() + 5; i++) {
                 List<String> line = lines.get(i - 5);
                 if (sheet.getRow(i) == null) {
@@ -123,30 +125,37 @@ public class Main {
                         int num = Integer.parseInt(s);
                         if (sheet.getRow(i).getCell(j) == null) {
                             sheet.getRow(i).createCell(j).setCellValue(num);
-                        } else {
+                        }
+                        else {
                             sheet.getRow(i).getCell(j).setCellValue(num);
                         }
-                    } catch (NumberFormatException e) {
+                    }
+                    catch (NumberFormatException e) {
                         if (s.contains("|")) {
                             s = s.replace("|", "");
                         }
                         if (sheet.getRow(i).getCell(j) == null) {
                             sheet.getRow(i).createCell(j).setCellValue(s);
-                        } else {
+                        }
+                        else {
                             sheet.getRow(i).getCell(j).setCellValue(s);
                         }
                     }
                     if (currency && j == line.size() - 1 && i != 5) {
                         sheet.getRow(i).getCell(j).setCellStyle(moneyStyle2);
                         currency = false;
-                    } else if (currency) {
+                    }
+                    else if (currency) {
                         sheet.getRow(i).getCell(j).setCellStyle(moneyStyle);
                         currency = false;
-                    } else if (j == line.size() - 1 && i != 5) {
+                    }
+                    else if (j == line.size() - 1 && i != 5) {
                         sheet.getRow(i).getCell(j).setCellStyle(style);
-                    } else if (j == line.size() - 2 && i != 5) {
+                    }
+                    else if (j == line.size() - 2 && i != 5) {
                         sheet.getRow(i).getCell(j).setCellStyle(salesStyle);
-                    } else if (j == line.size() - 1 && i == 5) {
+                    }
+                    else if (j == line.size() - 1 && i == 5) {
                         sheet.getRow(i).getCell(j).setCellStyle(hStyle);
                     }
                 }
@@ -154,10 +163,10 @@ public class Main {
             }
             pb.close();
 
-            pb = new ProgressBarBuilder().setTaskName("Fixing Seperator").setInitialMax(lastRowNum-6-lines.size())
-                .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
-            for(int i = lines.size(); i<lastRowNum; i++) {
-                if(sheet.getRow(i) == null) {
+            pb = new ProgressBarBuilder().setTaskName("Fixing Seperator").setInitialMax(lastRowNum - 6 - lines.size())
+                    .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
+            for (int i = lines.size(); i < lastRowNum; i++) {
+                if (sheet.getRow(i) == null) {
                     sheet.createRow(i);
                 }
                 XSSFCell cell = sheet.getRow(i).createCell(8);
@@ -166,14 +175,14 @@ public class Main {
                 pb.step();
             }
             pb.close();
-            //Auto size columns
+            // Auto size columns
             for (int i = 0; i < colSize; i++) {
                 sheet.autoSizeColumn(i);
             }
         }
         workbook.setForceFormulaRecalculation(true);
         fis.close();
-        
+
         FileOutputStream fos = new FileOutputStream(path.toFile());
         workbook.write(fos);
         workbook.close();
