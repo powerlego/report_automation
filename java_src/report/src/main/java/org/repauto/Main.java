@@ -35,8 +35,8 @@ public class Main {
         List<List<String>> lines = new ArrayList<List<String>>();
         try (CSVReader reader = new CSVReader(new FileReader(outCSV.toFile()))) {
             String[] line;
-            List<String> lineList = new ArrayList<String>();
             while ((line = reader.readNext()) != null) {
+                List<String> lineList = new ArrayList<String>();
                 for(String s : line) {
                     lineList.add(s.trim());
                 }
