@@ -163,7 +163,7 @@ public class Main {
             }
             pb.close();
 
-            pb = new ProgressBarBuilder().setTaskName("Fixing Seperator").setInitialMax(lastRowNum - 6 - lines.size())
+            pb = new ProgressBarBuilder().setTaskName("Fixing Separator").setInitialMax(lastRowNum - 6 - lines.size())
                     .setStyle(ProgressBarStyle.ASCII).setMaxRenderedLength(120).setUpdateIntervalMillis(10).build();
             for (int i = lines.size(); i < lastRowNum; i++) {
                 if (sheet.getRow(i) == null) {
